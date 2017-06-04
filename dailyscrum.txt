@@ -1,0 +1,152 @@
+1. I implemented Alpha, Beta and even Gamma
+2. I will implent Theta, Zeta, Yota today
+3. I desperately need help from the teacher to learn
+how to use Micro-Gamma expressions to solve ...
+
+
+--- April 10 Jun Yang
+DID SINCE LAST SCRUM:
+1. design database
+2. create Trello account and project github 
+
+--- April 10 Chen Chen
+1. edit the proposal.doc
+2. create my github account and Trello account
+3. create Trello broad
+
+
+--- April 11 Jun Yang
+1. redesign database
+2. will design user story  
+
+
+--- April 11 Chen Chen
+1. re-edit the proposal.doc
+2. get the picture of our application 
+3. will design user story
+
+--- April 12 Jun Yang
+1. start design WPF 
+2. Continue break down user story
+
+--- April 12 Chen Chen
+1. Finished create database on Azure
+
+--- April 13 Chen Chen
+1. Continue Finished create database on Azure
+
+--- April 14 YangJun
+1. Design the main window 
+
+--- April 15 Chen Chen
+1. implement the WPF the main window 
+
+
+--- April 17 Chen Chen
+1. Continue implement the WPF the main window 
+2. will start design button
+
+Yang Jun
+Design the splitter and grid in main window
+will test the main window
+
+--- April 18  YangJun
+finished the splitter and grid and stackpannel
+
+Chen Chen
+1. Continue implement the button  
+2. finished the spliiter and grid and stackpannel
+
+--- April 19  YangJun
+
+start import files function
+
+Chen Chen
+1. Continue implement the button  
+
+
+--- April 20  YangJun
+
+finish import files function
+change button 
+
+Chen Chen
+1. fix the problems in buttons
+2. start do listview's right click function
+
+--- April 21  YangJun
+
+will design Entity Framework
+will getPlaylists
+will getPlaylistsByFileName
+start to fix bug
+
+
+CHENCHEN
+Finished button problem fix 
+Finished listview's right click function
+will do other menu's function
+start to test function
+
+----April 22 ---YangJun
+1 finished Entity Framework yesterday
+2 do Expand Playlist
+3 will Redesign database
+
+
+CHENCHEN
+1 fixed bug , Fixed right click remove problem 
+2 do drag and drop 
+3 will load data into database
+
+--- April 23  YangJun
+
+1 Finished Entity Framework
+Finished getPlaylists
+Finished getPlaylistsByFileName
+Finished Create Playlist listview
+2 fix bug
+3 will help team member fix drag and drop bug
+
+CHENCHEN
+1 Finished Add Load All Songs from database display in listview MusicLibrary
+Finished MiSort_Click
+Finished MiClear_Click
+Finished Right-Click in treeview import to library
+2 edit issue document problems in github
+3 continue fix start drag and drop 
+
+--- April 24  YangJun
+
+1 finished Entities Framework:
+2 do update Query PlayList
+3 will Do: drag and drop
+
+CHENCHEN
+1 finished part of insert right filepath
+2 will finish drag and drop 
+and fix clear all list bugs
+will do secound windows to display more information of songs
+
+
+--- April 25 YangJun
+
+1 finish delelte Playlist, delete song SQL operation
+2 finish update Playlist, delete update SQL operation
+3 Center dialog in the parent windows
+4 will Do: Unit test, UI test
+5 Bug fix
+
+CHENCHEN
+1 finished part of insert right filepath
+2 will finish drag and drop 
+and fix clear all list bugs
+will do secound windows to display more information of songs
+
+--- April 26 YangJun
+
+Chen Chen
+1 Finished property_click second window
+2 do save button click in second window
+
+

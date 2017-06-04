@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RemoteLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Albums">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlbumTitle" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="date" />
+          <Property Name="Artist" Type="varchar" MaxLength="50" />
+          <Property Name="Tracks" Type="int" />
+          <Property Name="Cover" Type="image" />
+          <Property Name="CoverPatch" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="PlayLists">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="SongId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SongId" Type="int" Nullable="false" />
+          <Property Name="PlayListName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Songs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ArtistName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlbumId" Type="int" />
+          <Property Name="SequenceId" Type="int" />
+          <Property Name="PathToFile" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Year" Type="date" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="50" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <Association Name="PlayLists_Songs_FK1">
+          <End Role="Songs" Type="Self.Songs" Multiplicity="1" />
+          <End Role="PlayLists" Type="Self.PlayLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayLists">
+              <PropertyRef Name="SongId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Songs_Albums_FK">
+          <End Role="Albums" Type="Self.Albums" Multiplicity="0..1" />
+          <End Role="Songs" Type="Self.Songs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Songs">
+              <PropertyRef Name="AlbumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RemoteLibraryModelStoreContainer">
+          <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayLists" EntityType="Self.PlayLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Songs" EntityType="Self.Songs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="PlayLists_Songs_FK1" Association="Self.PlayLists_Songs_FK1">
+            <End Role="Songs" EntitySet="Songs" />
+            <End Role="PlayLists" EntitySet="PlayLists" />
+          </AssociationSet>
+          <AssociationSet Name="Songs_Albums_FK" Association="Self.Songs_Albums_FK">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Songs" EntitySet="Songs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RemoteLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlbumTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="DateTime" Precision="0" />
+          <Property Name="Artist" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tracks" Type="Int32" />
+          <Property Name="Cover" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CoverPatch" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Songs" Relationship="Self.Songs_Albums_FK" FromRole="Albums" ToRole="Songs" />
+        </EntityType>
+        <EntityType Name="PlayList">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="SongId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SongId" Type="Int32" Nullable="false" />
+          <Property Name="PlayListName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Song" Relationship="Self.PlayLists_Songs_FK1" FromRole="PlayLists" ToRole="Songs" />
+        </EntityType>
+        <EntityType Name="Song">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArtistName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AlbumId" Type="Int32" />
+          <Property Name="SequenceId" Type="Int32" />
+          <Property Name="PathToFile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Album" Relationship="Self.Songs_Albums_FK" FromRole="Songs" ToRole="Albums" />
+          <NavigationProperty Name="PlayLists" Relationship="Self.PlayLists_Songs_FK1" FromRole="Songs" ToRole="PlayLists" />
+        </EntityType>
+        <Association Name="Songs_Albums_FK">
+          <End Role="Albums" Type="Self.Album" Multiplicity="0..1" />
+          <End Role="Songs" Type="Self.Song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Songs">
+              <PropertyRef Name="AlbumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlayLists_Songs_FK1">
+          <End Role="Songs" Type="Self.Song" Multiplicity="1" />
+          <End Role="PlayLists" Type="Self.PlayList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayLists">
+              <PropertyRef Name="SongId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RemoteLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Albums" EntityType="Self.Album" />
+          <EntitySet Name="PlayLists" EntityType="Self.PlayList" />
+          <EntitySet Name="Songs" EntityType="Self.Song" />
+          <AssociationSet Name="Songs_Albums_FK" Association="Self.Songs_Albums_FK">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Songs" EntitySet="Songs" />
+          </AssociationSet>
+          <AssociationSet Name="PlayLists_Songs_FK1" Association="Self.PlayLists_Songs_FK1">
+            <End Role="Songs" EntitySet="Songs" />
+            <End Role="PlayLists" EntitySet="PlayLists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RemoteLibraryModelStoreContainer" CdmEntityContainer="RemoteLibraryEntities">
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="RemoteLibraryModel.Album">
+              <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AlbumTitle" ColumnName="AlbumTitle" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Artist" ColumnName="Artist" />
+                <ScalarProperty Name="Tracks" ColumnName="Tracks" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="CoverPatch" ColumnName="CoverPatch" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayLists">
+            <EntityTypeMapping TypeName="RemoteLibraryModel.PlayList">
+              <MappingFragment StoreEntitySet="PlayLists">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SongId" ColumnName="SongId" />
+                <ScalarProperty Name="PlayListName" ColumnName="PlayListName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Songs">
+            <EntityTypeMapping TypeName="RemoteLibraryModel.Song">
+              <MappingFragment StoreEntitySet="Songs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
+                <ScalarProperty Name="SequenceId" ColumnName="SequenceId" />
+                <ScalarProperty Name="PathToFile" ColumnName="PathToFile" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
